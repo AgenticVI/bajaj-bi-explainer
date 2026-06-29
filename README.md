@@ -1,5 +1,7 @@
 # Bajaj Capital BI Explainer Tool
 
+[![Deploy to Render](https://render.com/images/deploy-to-render.svg)](https://render.com/deploy?repo=https://github.com/AgenticVI/bajaj-bi-explainer)
+
 This web application helps Relationship Managers (RMs) at **Bajaj Capital Insurance Broking** instantly convert complex Benefit Illustration (BI) documents (pasted text or uploaded PDFs) into simple, clean, client-facing visual cards. 
 
 The styling is inspired by the **Headspace** design language, using a warm, friendly, clean look (strictly no greys) with strong card shadows and customized colors mapping directly to 6 distinct financial goal categories.

@@ -24,7 +24,7 @@ Create or open the `.env` file inside the `backend` folder:
 Set your Anthropic Claude API Key:
 ```env
 PORT=5000
-ANTHROPIC_API_KEY=your_actual_anthropic_api_key_here
+ANTHROPIC_API_KEY=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
 ```
 
 ### 2. Install Dependencies

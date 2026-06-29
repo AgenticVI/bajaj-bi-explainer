@@ -1,0 +1,13 @@
+{
+  "name": "bajaj-bi-explainer",
+  "version": "1.0.0",
+  "description": "Bajaj Capital BI Explainer Tool",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm.cmd install && npm.cmd install --prefix backend && npm.cmd install --prefix frontend",
+    "dev": "concurrently \"npm.cmd run dev --prefix backend\" \"npm.cmd run dev --prefix frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

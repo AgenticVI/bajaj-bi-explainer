@@ -9,6 +9,7 @@ import {
   FileCode2
 } from 'lucide-react';
 import { mockIllustrations } from './mockData';
+import { getFallbackResponse } from './fallbackParser';
 
 export default function App() {
   const [view, setView] = useState('input'); // 'input', 'loading', 'result', 'error'
@@ -144,6 +145,25 @@ export default function App() {
     setView('loading');
     setErrorMessage('');
     
+    const textToAnalyze = mode === 'text' ? textValue : pdfTextExtracted;
+    const isStaticDeploy = window.location.hostname.includes('github.io') || window.location.hostname === '';
+    
+    if (isStaticDeploy) {
+      console.log('Static deployment detected. Running client-side fallback...');
+      await new Promise(r => setTimeout(r, 1500)); // Premium feel loading effect
+      try {
+        const data = getFallbackResponse(textToAnalyze);
+        setResultData(data);
+        setView('result');
+        return;
+      } catch (err) {
+        console.error(err);
+        setErrorMessage('Failed to parse illustration locally.');
+        setView('error');
+        return;
+      }
+    }
+    
     try {
       let endpoint = '';
       let payload = {};
@@ -177,9 +197,16 @@ export default function App() {
       setResultData(data);
       setView('result');
     } catch (err) {
-      console.error(err);
-      setErrorMessage(err.message || 'Server connection failed. Make sure the backend is running and .env contains the API key.');
-      setView('error');
+      console.warn('API call failed. Trying client-side fallback...', err.message);
+      try {
+        const data = getFallbackResponse(textToAnalyze);
+        setResultData(data);
+        setView('result');
+      } catch (fallbackErr) {
+        console.error('Fallback failed:', fallbackErr);
+        setErrorMessage(err.message || 'Server connection failed. Make sure the backend is running and .env contains the API key.');
+        setView('error');
+      }
     }
   };
 
